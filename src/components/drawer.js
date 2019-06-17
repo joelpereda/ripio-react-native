@@ -3,14 +3,12 @@ import {
   Image,
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   ScrollView,
   Switch,
   Linking
 } from "react-native";
 import { Icon } from "native-base";
-import { styles as Styles } from "./styles";
 import { styles } from "../styles/styles";
 import { stylesDark } from "../styles/stylesDark";
 import { connect } from "react-redux";
@@ -29,7 +27,6 @@ class Drawer extends Component {
     this.setState({
       darkMode: !this.state.darkMode
     });
-    console.log("value :", value);
     this.props.loadStyles(value);
   }
 

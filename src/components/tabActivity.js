@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, FlatList, RefreshControl } from "react-native";
-import { Icon, Tabs, Tab } from "native-base";
 import { styles } from "../styles/styles";
-import Footer from "../components/footer";
 
 class TabActivity extends Component {
   render() {

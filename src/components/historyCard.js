@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, TouchableWithoutFeedback, Image } from "react-native";
-import { Card, CardItem, Body, Icon } from "native-base";
+import { Text, View, Image } from "react-native";
+import { Card, CardItem } from "native-base";
 import { styles } from "../styles/styles";
 
 class HistoryCard extends Component {

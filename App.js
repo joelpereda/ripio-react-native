@@ -16,7 +16,6 @@ import { Drawer } from "./src/components/drawer";
 import { HomeScreen } from "./src/screens/homeScreen";
 import { Provider } from "react-redux";
 import { store } from "./src/helpers/store";
-
 //Drawer config
 const DrawerStack = createDrawerNavigator(
   {
@@ -49,9 +48,12 @@ let RootStack = createStackNavigator({
 });
 
 let Navigation = createAppContainer(RootStack);
-
 // Render the app container component with the provider around it
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
   render() {
     return (
       <Root>

@@ -8,7 +8,8 @@ import {
   Image,
   Clipboard,
   RefreshControl,
-  Alert
+  Alert,
+  StatusBar
 } from "react-native";
 import {
   Icon,
@@ -34,11 +35,11 @@ import TabActivity from "../components/tabActivity";
 import Footer from "../components/footer";
 import Modal from "react-native-modal";
 import coinAddressValidator from "coin-address-validator";
-import { ScrollView, FlatList } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { Styles } from "../styles/styles";
-import Placeholder, { Line, Media } from "rn-placeholder";
 import HistoryCard from "../components/historyCard";
 import moment from "moment";
+import SplashScreen from "react-native-splash-screen";
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 class HomeScreen extends Component {
@@ -71,12 +72,12 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
+    SplashScreen.hide();
     this.props.onLoadPrices(true);
     this._getPrices();
     this._getWallet();
     this._getHistory();
   }
-
   _getPrices() {
     this.props.getPrices().then(prices => {
       this.setState({
@@ -381,6 +382,10 @@ class HomeScreen extends Component {
     let darkMode = price.darkMode;
     return (
       <View style={darkMode ? stylesDark.container : styles.container}>
+        <StatusBar
+          backgroundColor={darkMode ? "#000" : "#fff"}
+          barStyle={darkMode ? "light-content" : "dark-content"}
+        />
         <Styles />
         <View style={styles.rowContainer}>
           <TouchableOpacity
@@ -401,7 +406,10 @@ class HomeScreen extends Component {
             <Icon
               name="menu"
               type="MaterialIcons"
-              style={[styles.icon, { color: "grey", marginTop: 5 }]}
+              style={[
+                styles.icon,
+                { color: darkMode ? "#fff" : "#000", marginTop: 5 }
+              ]}
             />
           </TouchableOpacity>
         </View>
@@ -552,7 +560,6 @@ class HomeScreen extends Component {
         {/* MODAL CUANDO APRETAS EL CARD */}
         <Modal
           style={styles.modal}
-          swipeDirection="down"
           isVisible={this.state.isModalVisible}
           onBackButtonPress={() => {
             this.hideModalCard();
@@ -563,6 +570,7 @@ class HomeScreen extends Component {
           onSwipeComplete={() => {
             this.hideModalCard();
           }}
+          swipeDirection="down"
           animationInTiming={1000}
           animationOutTiming={1000}
           animationIn="slideInUp"
@@ -571,108 +579,55 @@ class HomeScreen extends Component {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>BITCOIN</Text>
+              <Text style={styles.modalTitle}>MI BALANCE</Text>
               <Text style={styles.modalBalanceBtc}>{balanceBtc} BTC</Text>
               <Text style={styles.modalBalanceArs}>AR$ {balanceArs}</Text>
             </View>
             <View style={styles.modalActivity}>
-              <View style={styles.modalRow}>
-                <TouchableOpacity onPress={() => this.handleActivityModal()}>
-                  <Text
-                    style={
-                      this.state.activity
-                        ? styles.modalActivityTitleActive
-                        : styles.modalActivityTitle
-                    }
-                  >
-                    Historial
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.handleChartModal()}>
-                  <Text
-                    style={
-                      this.state.chart
-                        ? styles.modalChartTitleActive
-                        : styles.modalChartTitle
-                    }
-                  >
-                    Gráfico
-                  </Text>
-                </TouchableOpacity>
+              <View style={styles.chartViewModal}>
+                <Text style={styles.title}>Cotización del Bitcoin</Text>
+                <Text style={styles.subtitleChart}>
+                  1 BTC = {price.isLoading ? "-" : `AR$ ${btcSell}`}
+                </Text>
+                <LineChart
+                  data={{
+                    labels: [
+                      "Enero",
+                      "Febrero",
+                      "Marzo",
+                      "Abril",
+                      "Mayo",
+                      "Junio"
+                    ],
+                    datasets: [
+                      {
+                        data: [
+                          128848,
+                          151706,
+                          177448,
+                          232382,
+                          299465,
+                          btcBuy.toString().substr(0, 6)
+                        ]
+                      }
+                    ]
+                  }}
+                  width={Dimensions.get("window").width + 1}
+                  height={300}
+                  yAxisLabel={"$"}
+                  chartConfig={{
+                    backgroundColor: "#e26a00",
+                    backgroundGradientFrom: "#ff9951",
+                    backgroundGradientTo: "#ff6a00",
+                    decimalPlaces: 0,
+                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
+                  }}
+                  style={{
+                    marginTop: 30
+                  }}
+                  bezier
+                />
               </View>
-              {this.state.activity ? (
-                <View style={styles.activityViewModal}>
-                  {this.state.history !== [] ? (
-                    <View style={[styles.container, { paddingVertical: 20 }]}>
-                      <Text
-                        style={[
-                          styles.title,
-                          { marginBottom: 20, textAlign: "center" }
-                        ]}
-                      >
-                        Lista de movimientos
-                      </Text>
-                      <FlatList
-                        keyExtractor={this._keyExtractor}
-                        data={this.state.history}
-                        renderItem={this._renderItem}
-                        refreshControl={
-                          <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={this._onRefresh}
-                          />
-                        }
-                      />
-                    </View>
-                  ) : (
-                    <Text style={styles.activityViewModalText}>
-                      No hay operaciones realizadas :(
-                    </Text>
-                  )}
-                </View>
-              ) : (
-                <View style={styles.chartViewModal}>
-                  <Text style={styles.title}>Grafico informativo bitcoin</Text>
-                  <Text style={styles.subtitleChart}>
-                    1 BTC = {price.isLoading ? "-" : `${btcSell} ARS`}
-                  </Text>
-                  <LineChart
-                    data={{
-                      labels: [
-                        "Enero",
-                        "Febrero",
-                        "Marzo",
-                        "Abril",
-                        "Mayo",
-                        "Junio"
-                      ],
-                      datasets: [
-                        {
-                          data: [
-                            128848,
-                            151706,
-                            177448,
-                            232382,
-                            299465,
-                            btcBuy.toString().substr(0, 6)
-                          ]
-                        }
-                      ]
-                    }}
-                    width={Dimensions.get("window").width + 1}
-                    height={300}
-                    yAxisLabel={"$"}
-                    chartConfig={{
-                      backgroundColor: "#e26a00",
-                      backgroundGradientFrom: "#ff9951",
-                      backgroundGradientTo: "#ff6a00",
-                      decimalPlaces: 0,
-                      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
-                    }}
-                    bezier
-                  />
-                </View>
-              )}
             </View>
           </View>
         </Modal>

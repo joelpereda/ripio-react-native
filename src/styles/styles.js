@@ -17,7 +17,6 @@ class Styles extends Component {
 
   render() {
     let { price } = this.props;
-    console.log("darkmode :", price.darkMode);
 
     return (
       <View>
@@ -663,7 +662,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
-    flex: 1
+    flex: 1,
+    
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
   subtitleChart: {
     fontFamily: "ProductSans-Medium",

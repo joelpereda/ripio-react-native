@@ -11,7 +11,6 @@ export function ServerCallPrices() {
   return fetch(PRICE)
     .then(response => response.json())
     .then(responseJson => {
-      console.log("responseJson :", responseJson);
       return responseJson;
     })
     .catch(error => {
@@ -23,7 +22,6 @@ export function ServerCallFee() {
   return fetch(FEE)
     .then(response => response.json())
     .then(responseJson => {
-      console.log("responseJson :", responseJson);
       return responseJson;
     })
     .catch(error => {
@@ -35,7 +33,6 @@ export function ServerCallWallet() {
   return fetch(WALLET)
     .then(response => response.json())
     .then(responseJson => {
-      console.log("wallet :", responseJson);
       return responseJson;
     })
     .catch(error => {
@@ -44,8 +41,6 @@ export function ServerCallWallet() {
 }
 
 export function serverCallPut(address, monto) {
-  console.log("address :", address);
-  console.log("monto :", monto);
   return fetch(WALLET + `/${address}`, {
     method: "PUT",
     headers: {
@@ -59,7 +54,6 @@ export function serverCallPut(address, monto) {
   })
     .then(send => send.json())
     .then(send => {
-      console.log("send :", send);
       return send;
     })
     .catch(error => {
@@ -71,7 +65,6 @@ export function ServerCallHistory() {
   return fetch(HISTORY)
     .then(response => response.json())
     .then(responseJson => {
-      console.log("history :", responseJson);
       return responseJson;
     })
     .catch(error => {
@@ -80,10 +73,6 @@ export function ServerCallHistory() {
 }
 
 export function serverCallPost(address, fecha, monto, fee, error) {
-  console.log("address :", address);
-  console.log("fecha :", fecha);
-  console.log("fee :", fee);
-  console.log("monto :", monto);
   return fetch(HISTORY, {
     method: "POST",
     headers: {
@@ -110,7 +99,6 @@ function internalServerCallPublic(requestOptions) {
         const error = (data && data.error) || response.statusText;
         return Promise.reject(error);
       }
-      console.log("data internalServerCallPublic:", data);
       return data;
     });
   });

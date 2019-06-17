@@ -6,7 +6,6 @@ export const userActions = {
 };
 
 export function changeStyles(data) {
-  console.log("data :", data);
   return { type: priceConstants.CHANGE_STYLES, data };
 }
 

@@ -35,7 +35,6 @@ export function price(state = initialState, action) {
         data: {}
       };
     case priceConstants.CHANGE_STYLES:
-      console.log('action.data :', action.data);
       return {
         ...state,
         darkMode: action.data
