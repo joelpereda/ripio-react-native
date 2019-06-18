@@ -10,7 +10,7 @@ $ git clone https://github.com/joelpereda/ripio-react-native.git
 ```
 $ yarn install
 ```
-### Run on connected and depuration mode device
+### Run on connected and debuggin mode device
 ```
 $ react-native run-android
 ```
