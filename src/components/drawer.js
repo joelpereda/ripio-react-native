@@ -111,7 +111,6 @@ class Drawer extends Component {
                 Modo oscuro
               </Text>
               <Switch
-                
                 thumbColor="#0187d0"
                 trackColor="#0187d0"
                 value={this.state.darkMode}

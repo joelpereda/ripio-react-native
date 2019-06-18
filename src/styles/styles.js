@@ -16,8 +16,6 @@ class Styles extends Component {
   }
 
   render() {
-    let { price } = this.props;
-
     return (
       <View>
         <Text />
@@ -175,6 +173,14 @@ const styles = StyleSheet.create({
   tabContainer: {
     height: "75%"
   },
+  activeTabStyle: {
+    backgroundColor: "transparent",
+    shadowColor: "transparent",
+    shadowOpacity: 0
+  },
+  textStyle: {
+    fontFamily: "ProductSans-Bold"
+  },
 
   //CARDS
   card: {
@@ -186,7 +192,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: "space-between",
     paddingHorizontal: 25,
-    width: '98%'
+    width: "98%"
   },
   cardTitleBtc: {
     fontFamily: "ProductSans-Regular",
@@ -252,9 +258,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "flex-end",
     borderRadius: 4,
-    padding: 4,
     paddingHorizontal: 10
   },
   //FOOTER
@@ -299,6 +303,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignSelf: "flex-start",
     flex: 0.2
+  },
+  modalHeaderTop: {
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    backgroundColor: "#eaeaea",
+    width: 55,
+    borderRadius: 25,
+    marginBottom: 5,
+    height: 7
   },
   modalTitle: {
     fontFamily: "ProductSans-Bold",
@@ -422,7 +436,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
-    paddingVertical: 20,
+    paddingVertical: 30,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     borderColor: "rgba(0, 0, 0, 0.1)",
@@ -501,7 +515,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15
   },
-  addressRow: { flexDirection: "row", alignItems: 'center', marginTop: 5 },
+  addressRow: { flexDirection: "row", alignItems: "center", marginTop: 5 },
 
   //MODAL SEND
   modalContainerSend: {
@@ -663,9 +677,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     flex: 1,
-    
+
     borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    borderTopRightRadius: 25
   },
   subtitleChart: {
     fontFamily: "ProductSans-Medium",

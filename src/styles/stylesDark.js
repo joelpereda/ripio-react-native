@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet } from "react-native";
 
 const stylesDark = StyleSheet.create({
   //GENERAL STYLES
