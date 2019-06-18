@@ -6,9 +6,10 @@ import {
   Clipboard,
   RefreshControl,
   Alert,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from "react-native";
-import { Tabs, Tab, TabHeading, Toast, Spinner } from "native-base";
+import { Tabs, Tab, TabHeading, Toast } from "native-base";
 import { styles } from "../styles/styles";
 import { stylesDark } from "../styles/stylesDark";
 import { connect } from "react-redux";
@@ -592,7 +593,10 @@ class HomeScreen extends Component {
                     marginTop: 20
                   }}
                 >
-                  <Spinner />
+                  <Text style={[styles.title, { marginBottom: 25 }]}>
+                    Cargando...
+                  </Text>
+                  <ActivityIndicator size="large" color="#0187d0" />
                 </View>
               ) : (
                 <View>

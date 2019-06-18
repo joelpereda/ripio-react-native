@@ -46,7 +46,7 @@ class ModalReceive extends Component {
             <View style={styles.qrContainer}>
               <Image
                 source={require("../../assets/qr.png")}
-                style={{ width: 300, height: 300 }}
+                style={{ width: 200, height: 200 }}
               />
             </View>
             <View style={styles.addressContainer}>
