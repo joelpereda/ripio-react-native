@@ -23,7 +23,7 @@ class Balance extends Component {
               : styles.balanceTextValue
           }
         >
-          AR$ {this.props.balanceArs != NaN ? this.props.balanceArs : 0}
+          AR$ {this.props.balanceArs !== NaN ? this.props.balanceArs : 0}
         </Text>
         <Text
           style={

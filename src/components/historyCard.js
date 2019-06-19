@@ -19,7 +19,7 @@ class HistoryCard extends Component {
             }}
             header={true}
           >
-            {this.props.error ? (
+            {this.props.error === true ? (
               <Image
                 source={require("../../assets/cross.png")}
                 style={{
@@ -53,7 +53,7 @@ class HistoryCard extends Component {
                 <View style={{ marginBottom: 10 }}>
                   <Text style={styles.cardTitle}>Estado: </Text>
                   <Text style={styles.cardTitleBtc}>
-                    {this.props.error ? "No enviado" : "Enviado"}
+                    {this.props.error === true ? "No enviado" : "Enviado"}
                   </Text>
                 </View>
 

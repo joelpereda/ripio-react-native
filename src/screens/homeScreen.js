@@ -283,18 +283,28 @@ class HomeScreen extends Component {
     luego setea el fee y calcula el monto para actualizar el balance en /wallet
     hace PUT en /wallet con el monto (balanceBtc - budget) y hace POST en /history 
     con el intento válido o no de envío */
-    const date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
+    let myAddress = "5d05323b035a093b24cc1c1c";
+    const date = moment(new Date()).format("DD-MM-YYYY hh:mm:ss");
     let fecha = date;
     let fee = 0.0002;
     let { wallet } = this.props;
     let balanceBtc = wallet.isLoading ? 0 : wallet.data[0].balance;
     let monto = balanceBtc - budget;
-
+    console.log("address :", address);
+    console.log("fecha :", fecha);
+    console.log("budget :", budget);
+    console.log("fee :", fee);
     this.props
-      .sendBtc(address, monto)
+      .sendBtc(myAddress, monto)
       .then(data => {
         if (data.data == "TypeError: Network request failed") {
           this.props.postHistory(address, fecha, budget, fee, true);
+          this.props.getHistory().then(history => {
+            this.setState({
+              history: history.data,
+              refreshing: false
+            });
+          });
           this.loadingSend(true);
           this.showModalOk();
           setTimeout(() => {
@@ -303,13 +313,19 @@ class HomeScreen extends Component {
           }, 2000);
         } else {
           this.hideModalErrorSend();
-          this.loadingSend(true);
           this.showModalOk();
+          this.loadingSend(true);
           this.props.postHistory(address, fecha, budget, fee, false);
           setTimeout(() => {
             this.props.getWallet().then(wallet => {
               this.setState({
                 wallet: wallet.data,
+                refreshing: false
+              });
+            });
+            this.props.getHistory().then(history => {
+              this.setState({
+                history: history.data,
                 refreshing: false
               });
             });
@@ -549,7 +565,7 @@ class HomeScreen extends Component {
           clipboard={this.state.clipboard}
           hideModalConfirm={() => this.hideModalConfirm()}
           aceptSend={() =>
-            this.aceptSend(this.state.bitcoin, this.state.clipboard)
+            this.aceptSend(this.state.clipboard, this.state.bitcoin)
           }
         />
 
