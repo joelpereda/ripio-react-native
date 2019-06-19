@@ -26,12 +26,6 @@ export function getHistory() {
 }
 
 export function postHistory(address, fecha, monto, fee, error) {
-  console.log("posting history");
-  console.log("address :", address);
-  console.log("fecha :", fecha);
-  console.log("monto :", monto);
-  console.log("fee :", fee);
-  console.log("error :", error);
   return dispatch => {
     return serverCallPost(address, fecha, monto, fee, error).then(
       data => {

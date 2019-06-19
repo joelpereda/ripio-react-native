@@ -290,10 +290,6 @@ class HomeScreen extends Component {
     let { wallet } = this.props;
     let balanceBtc = wallet.isLoading ? 0 : wallet.data[0].balance;
     let monto = balanceBtc - budget;
-    console.log("address :", address);
-    console.log("fecha :", fecha);
-    console.log("budget :", budget);
-    console.log("fee :", fee);
     this.props
       .sendBtc(myAddress, monto)
       .then(data => {
